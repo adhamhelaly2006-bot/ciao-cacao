@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ciao Cacao - Menu</title>
+    <script>
+      // Configure Tailwind CSS to use class-based dark mode
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* Simple scroll-behavior polyfill */
       html {
         scroll-behavior: smooth;
-      }
-      body {
-        background-color: #f8f8f4; /* Off-white background to match menu */
       }
       /* Custom scrollbar for a better look */
       ::-webkit-scrollbar {
@@ -21,6 +24,9 @@
       ::-webkit-scrollbar-track {
         background: #f1f1f1;
       }
+      .dark ::-webkit-scrollbar-track {
+        background: #2d3748; /* gray-800 */
+      }
       ::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 4px;
@@ -28,7 +34,25 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #555;
       }
+      /* For the horizontal nav scrollbar */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
     </style>
+    <script>
+      // Prevents "flash of unstyled content" by setting the theme before the page loads.
+      // Defaults to light mode unless a different theme is stored.
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   <script type="importmap">
 {
   "imports": {
@@ -39,7 +63,7 @@
 }
 </script>
 </head>
-  <body class="bg-gray-50">
+  <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
